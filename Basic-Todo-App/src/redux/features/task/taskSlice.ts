@@ -1,14 +1,17 @@
+import type { RootState } from "@/redux/store";
 import type { ITask } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
+
 
 // make a type 
 
 interface InitialState {
-    task: ITask[]
+    tasks: ITask[],
+    filter: "all" | "high" | "medium" | "low"
 }
 // this is giving a vibe of schema. 
 const initialState: InitialState = {
-    task: [
+    tasks: [
         {
             id: "dskdjsdks",
             title: "Initialize Frontend",
@@ -24,14 +27,22 @@ const initialState: InitialState = {
             dueDate: "2025-11",
             isCompleted: false,
             priority: "High"
-        }
-    ]
+        },
+    ],
+    filter: "all",
 }
 const taskSlice = createSlice({
     name: "task",
     initialState,
     reducers: {}
 })
+
+export const selectTasks = (state: RootState) => {
+    return state.todo.tasks
+}
+export const selectFilter = (state: RootState) => {
+    return state.todo.filter
+}
 
 export default taskSlice.reducer
 
