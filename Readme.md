@@ -486,5 +486,94 @@ function App() {
 export default App
 
 ```
-- this button is editable we can change the styling of the button from src->components->ui->button.tsx
+- this button is editable we can change the styling of the button from src-> components-> ui-> button.tsx
 - The fun fact is that we do not need to install all component of the library. we just have to install the required component we want. 
+
+## 22-6 Configure basic routing using react-router-dom
+- Inside there are three different type of react router dom 
+  1. Framework mode (only for framework)
+  2. Declarative mode (Has Less Control)
+  3. Data Mode (has much more control over routing)
+- Now lets install react router dom
+
+```
+npm i react-router
+
+```
+- main.txs
+
+```tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import { RouterProvider } from 'react-router'
+import router from './routes/index.tsx'
+import { Provider } from 'react-redux'
+import { store } from './redux/store.ts'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </StrictMode>,
+)
+```
+
+- routes -> index.tsx
+
+```tsx
+import App from "@/App";
+import Task from "@/pages/Task";
+import User from "@/pages/User";
+import { createBrowserRouter } from "react-router";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        // element: <div>Hello World</div>,
+        Component: App,
+        children: [
+            {
+                index: true,
+                Component: Task,
+            },
+            {
+                path: "tasks",
+                Component: Task,
+            },
+            {
+                path: "users",
+                Component: User,
+            },
+
+        ]
+    },
+]);
+
+export default router
+```
+
+- src -> components -> layout -> Navbar.tsx 
+
+```tsx
+import Logo from "@/assets/Logo";
+import { Link } from "react-router";
+
+export default function Navbar() {
+    return (
+        <div>
+            <nav className="max-w-7xl mx-auto h-16 flex items-center gap-3 px-5">
+                <div className="flex items-center">
+                    <Logo /> <span className="font-bold ml-2">Task</span> Master
+                </div>
+                <Link to="/users">Users</Link>
+                <Link to="/tasks">Tasks</Link>
+            </nav>
+
+        </div>
+    )
+}
+
+```
+
