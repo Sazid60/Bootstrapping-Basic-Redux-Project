@@ -26,7 +26,7 @@ const initialState: InitialState = {
             description: "Make the proper commits ",
             dueDate: "2025-11",
             isCompleted: false,
-            priority: "High"
+            priority: "Medium"
         },
     ],
     filter: "all",
